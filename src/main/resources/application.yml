@@ -1,0 +1,14 @@
+server:
+  servlet:
+    context-path: /member-api
+spring:
+  application:
+    name: stockstellar-member-api
+  profiles:
+    include: oauth
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: validate
+      default_batch_fetch_size: 100
+      time_zone: Asia/Seoul
