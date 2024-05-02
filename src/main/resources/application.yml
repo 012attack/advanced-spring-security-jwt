@@ -1,14 +1,11 @@
-server:
-  servlet:
-    context-path: /member-api
 spring:
   application:
-    name: stockstellar-member-api
-  profiles:
-    include: oauth
+    name: basic-spring-security-jwt
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
       default_batch_fetch_size: 100
       time_zone: Asia/Seoul
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
