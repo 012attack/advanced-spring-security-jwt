@@ -1,6 +1,6 @@
 spring:
   application:
-    name: basic-spring-security-jwt
+    name: advanced-spring-security-jwt
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
