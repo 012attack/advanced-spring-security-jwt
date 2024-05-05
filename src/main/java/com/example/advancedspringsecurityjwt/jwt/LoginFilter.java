@@ -1,6 +1,6 @@
-package com.example.basicspringsecurityjwt.jwt;
+package com.example.advancedspringsecurityjwt.jwt;
 
-import com.example.basicspringsecurityjwt.dto.CustomUserDetails;
+import com.example.advancedspringsecurityjwt.dto.CustomUserDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
