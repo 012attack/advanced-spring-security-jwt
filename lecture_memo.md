@@ -46,6 +46,18 @@ Form 로그인 방식에서는 클라이언트단이 username과 password를 전
 * UserDetails 커스텀 구현  
   CustomUserDetails.java 보기
 
+### 로그인 성공 JWT 발급
+
+* 강사는 UsernamePasswordAuthenticationFilter을 구현한 LoginFilter에 JWTUtil을 구현해서 주입해서 사용
+* SecurityConfig에서  
+  private final JWTUtil jwtUtil; 이렇게 주입받아서  
+  .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class);  
+  이런식으로 사용
+
+#### 로그인 성공 시 / 실패 시 구현 메소드 = successfulAuthentication / unsuccessfulAuthentication
+
+
+
 
 
 
