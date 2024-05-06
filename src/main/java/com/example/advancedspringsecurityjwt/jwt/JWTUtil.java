@@ -1,4 +1,4 @@
-package com.example.basicspringsecurityjwt.jwt;
+package com.example.advancedspringsecurityjwt.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;

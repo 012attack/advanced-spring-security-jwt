@@ -1,8 +1,8 @@
-package com.example.basicspringsecurityjwt.config;
+package com.example.advancedspringsecurityjwt.config;
 
-import com.example.basicspringsecurityjwt.jwt.JWTFilter;
-import com.example.basicspringsecurityjwt.jwt.JWTUtil;
-import com.example.basicspringsecurityjwt.jwt.LoginFilter;
+import com.example.advancedspringsecurityjwt.jwt.JWTFilter;
+import com.example.advancedspringsecurityjwt.jwt.JWTUtil;
+import com.example.advancedspringsecurityjwt.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

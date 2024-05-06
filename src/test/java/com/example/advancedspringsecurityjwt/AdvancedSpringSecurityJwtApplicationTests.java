@@ -1,10 +1,10 @@
-package com.example.basicspringsecurityjwt;
+package com.example.advancedspringsecurityjwt;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BasicSpringSecurityJwtApplicationTests {
+class AdvancedSpringSecurityJwtApplicationTests {
 
     @Test
     void contextLoads() {

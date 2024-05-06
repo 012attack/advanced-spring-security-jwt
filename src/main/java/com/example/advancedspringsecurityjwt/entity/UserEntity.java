@@ -1,4 +1,4 @@
-package com.example.basicspringsecurityjwt.entity;
+package com.example.advancedspringsecurityjwt.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

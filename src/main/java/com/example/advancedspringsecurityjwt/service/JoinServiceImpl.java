@@ -1,8 +1,8 @@
-package com.example.basicspringsecurityjwt.service;
+package com.example.advancedspringsecurityjwt.service;
 
-import com.example.basicspringsecurityjwt.dto.JoinDTO;
-import com.example.basicspringsecurityjwt.entity.UserEntity;
-import com.example.basicspringsecurityjwt.repository.UserRepository;
+import com.example.advancedspringsecurityjwt.dto.JoinDTO;
+import com.example.advancedspringsecurityjwt.entity.UserEntity;
+import com.example.advancedspringsecurityjwt.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

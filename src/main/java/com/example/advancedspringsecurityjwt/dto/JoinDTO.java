@@ -1,4 +1,4 @@
-package com.example.basicspringsecurityjwt.dto;
+package com.example.advancedspringsecurityjwt.dto;
 
 import lombok.Getter;
 import lombok.Setter;

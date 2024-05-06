@@ -1,6 +1,6 @@
-package com.example.basicspringsecurityjwt.dto;
+package com.example.advancedspringsecurityjwt.dto;
 
-import com.example.basicspringsecurityjwt.entity.UserEntity;
+import com.example.advancedspringsecurityjwt.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
