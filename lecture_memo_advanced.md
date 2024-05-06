@@ -139,15 +139,6 @@
 
 ### 요청 로직
 
-
-
-
-
-
-
-
-
-
 ```
 서버측 JWTFilter에서 Access 토큰의 만료로 인한 특정한 상태 코드가 응답되면 프론트측 Axios Interceptor와 같은 예외 핸들러에서 Access 토큰 재발급을 위한 Refresh을 서버측으로 전송한다.
 
@@ -155,7 +146,108 @@
 ```
 ![all_diagram](md-images/2.png)
 
+## Refresh Rotate
 
+Refresh Rotate란
+```
+### Refresh Rotate란
+
+Reissue 엔드포인트에서 Refresh 토큰을 받아 Access 토큰 갱신 시 Refresh 토큰도 함께 갱신하는 방법입니다.
+
+- 장점
+    - Refresh 토큰 교체로 보안성 강화
+    - 로그인 지속시간 길어짐
+- 추가 구현 작업
+    - 발급했던 Refresh 토큰을 모두 기억한 뒤, Rotate 이전의 Refresh 토큰은 사용하지 못하도록 해야 함
+```
+
+## Refresh 토큰 서버측 저장
+
+서버측 주도권
+
+```
+단순하게 JWT를 발급하여 클라이언트측으로 전송하면 인증/인가에 대한 주도권 자체가 클라이언트측에 맡겨진다.
+
+JWT를 탈취하여 서버측으로 접근할 경우 JWT가 만료되기 까지 서버측에서는 그것을 막을 수 없으며, 프론트측에서 토큰을 삭제하는 로그아웃을 구현해도 이미 복제가 되었다면 피해를 입을 수 있다.
+
+이런 문제를 해결하기 위해 생명주기가 긴 Refresh 토큰은 발급시 서버측 저장소에 기억 후 기억되어 있는 Refresh 토큰만 사용할 수 있도록 서버측에서 주도권을 가질 수 있다.
+```
+
+구현 방법
+```
+- 발급시
+    - Refresh 토큰을 서버측 저장소에 저장
+- 갱신시 (Refresh Rotate)
+    - 기존 Refresh 토큰을 삭제하고 새로 발급한 Refresh 토큰을 저장
+```
+
+토큰 저장소 구현
+```
+- **토큰 저장소**
+
+RDB 또는 Redis와 같은 데이터베이스를 통해 Refresh 토큰을 저장한다. 이때 Redis의 경우 TTL 설정을 통해 생명주기가 끝이난 토큰은 자동으로 삭제할 수 있는 장점이 있다.
+```
+
+RefreshEntity, RefreshRepository 추가
+
+### 로그인시 : LoginSuccessHandler 수정 (LoginFilter.java의 successfulAuthentication)
+```
+- RefreshRepository 의존성 주입**
+
+- successfulAuthentication() 일부 추가**
+```
+
+
+Reissue시 : ReissueController
+```
+- **RefreshRepository 의존성 주입**
+
+- **PostMapping(”/reissue”) 경로 메소드**
+```
+
+### 9. 로그아웃
+
+로그아웃 기능
+
+```
+로그아웃 기능을 통해 추가적인 JWT 탈취 시간을 줄일 수 있다.
+
+- 로그아웃 버튼 클릭시
+    - 프론트엔드측 : 로컬 스토리지에 존재하는 Access 토큰 삭제 및 서버측 로그아웃 경로로 Refresh 토큰 전송
+    - 백엔드측 : 로그아웃 로직을 추가하여 Refresh 토큰을 받아 쿠키 초기화 후 Refresh DB에서 해당 Refresh 토큰 삭제 (모든 계정에서 로그아웃 구현시 username 기반으로 모든 Refresh 토큰 삭제)
+```
+
+백엔드에서 로그아웃 수행 작업
+```
+1. DB에 저장하고 있는 Refresh 토큰 삭제
+2. Refresh 토큰 쿠키 null로 변경
+```
+
+스프링 시큐리티에서의 로그아웃 구현의 위치
+```
+일반적으로 스프링 시큐리티 의존성을 프로젝트에 추가했을 경우 기본 로그아웃 기능이 활성화 된다. 해당 로그아웃을 수행하는 클래스의 위치는 필터단이다.
+따라서 우리의 커스텀 필터 또한 시큐리티 필터단에 구현할 예정이다.
+```
+
+로그아웃 필터 구현
+CustomLogoutFilter.java
+SecurityConfig 등록
+
+### 10. 추가적인 보안 구상
+
+요청 IP 확인 : PC 기반
+```
+PC의 경우 IP 주소가 변경될 일이 거의 없습니다. IP 주소가 변경되는 경우 요청이 거부되도록 진행할 수 있습니다.
+
+- **로직 구상**
+    1. 로그인시 JWT 발급과 함께 JWT와 IP를 DB 테이블에 저장
+    2. Access 토큰으로 요청시 요청 IP와 로그인시 저장한 IP 주소를 대조
+    3. Access 토큰 재발급시 새로운 Access 토큰과 IP를 DB 테이블에 저장
+
+- **네이버의 경우**
+    
+    네이버도 PC(노트북) 환경에서 로그인을 진행 후 다른 IP 주소로 변경되면 재 로그인을 진행하라는 알림이 발생합니다.
+```
 
 
 
