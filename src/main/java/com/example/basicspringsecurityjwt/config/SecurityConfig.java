@@ -37,15 +37,15 @@ public class SecurityConfig {
 
         //csrf disable
         http
-                .csrf((auth) -> auth.disable());
+                .csrf((csrf) -> csrf.disable());
 
         //From 로그인 방식 disable
         http
-                .formLogin((auth) -> auth.disable());
+                .formLogin((formLogin) -> formLogin.disable());
 
         //http basic 인증 방식 disable
         http
-                .httpBasic((auth) -> auth.disable());
+                .httpBasic((httpBasic) -> httpBasic.disable());
 
         //경로별 인가 작업
         http
