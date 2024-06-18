@@ -1,4 +1,4 @@
-# Basic Spring Security JWT lesson
+# Advanced Spring Security JWT lesson
 [Youtube 강의 주소](https://www.youtube.com/watch?v=SxfweG-F6JM&list=PLJkjrxxiBSFATow4HY2qr5wLvXM6Rg-BM)
 
 ### Lecture Documentations
